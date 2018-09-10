@@ -217,6 +217,11 @@ body#checkout {
       label {
         text-align: inherit;
       }
+      &-logo {
+        img {
+          width: 100%;
+        }
+      }
     }
     .carrier-delay,
     .carrier-name {

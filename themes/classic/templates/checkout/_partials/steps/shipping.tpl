@@ -53,7 +53,7 @@
                         <div class="col-sm-5 col-xs-12">
                           <div class="row">
                             {if $carrier.logo}
-                            <div class="col-xs-3">
+                            <div class="col-xs-3 delivery-option-logo">
                                 <img src="{$carrier.logo}" alt="{$carrier.name}" />
                             </div>
                             {/if}
