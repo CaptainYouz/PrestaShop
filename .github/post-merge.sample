@@ -34,9 +34,15 @@ cyan='\033[0;36m'
 white='\033[0;37m'
 
 # Specials caracters
+if [ -f "/etc/debian_version" ]; then
+  checkValue="\342\234\224"
+else
+  checkValue="\xE2\x9C\x94"
+fi
+
 npm="${cyan}${bold}npm:${end}"
 build="${cyan}${bold}build:${end}"
-check="${green}${bold}\xE2\x9C\x94${end}"
+check="${green}${bold}${checkValue}${end}"
 info="${cyan}${bold}-${end}"
 cross="${red}${bold}X${end}"
 warning="${yellow}${bold}!${end}"
