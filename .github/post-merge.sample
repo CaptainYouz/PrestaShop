@@ -98,7 +98,7 @@ npmInstall() {
 #   $2: Package.json path. Required to check changes in package.json
 #
 packagesCheck() {
-  if [ $(echo $_GIT_CHANGES | grep $2) ]; then
+  if [ "$(echo $_GIT_CHANGES | grep $2)" ]; then
     log "${npm} ${warning} Changes found in: '$2'"
     npmInstall "$1"
   elif [ ! -d "node_modules/" ]; then
@@ -157,7 +157,7 @@ buildTheme() {
   if [ ! -d "$4" ]; then      # case: if no assets directory is present
     echo "${build} ${warning} No assets directory found!"
     buildAssets "$1"
-  elif [ $(echo $_GIT_CHANGES | grep $2) ]; then # case: if some files inside the theme directory have changed since the last pull
+  elif [ "$(echo $_GIT_CHANGES | grep $2)" ]; then # case: if some files inside the theme directory have changed since the last pull
     echo "${build} ${warning} Changes found in assets directory!"
     buildAssets "$1"
   else
@@ -172,7 +172,6 @@ test() {
 }
 
 ## Start of the script
-clear
 printLine
 log $purple$bold "ASSETS BUILDING"
 buildTheme "BO - Default Theme" $_BO_DEFAULT_THEME $_BO_DEFAULT_THEME_PACKAGE $_BO_DEFAULT_THEME_ASSETS
