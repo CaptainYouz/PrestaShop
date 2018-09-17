@@ -87,7 +87,7 @@ npmInstall() {
   errorMessage="${red}${bold}npm: ${cross} ${red}${bold}Error on 'npm install' command! Logs available in: $logFile ${unformat}"
 
   log "${npm} ${info} Installing new modules, starting 'npm install'..."
-  ( (npm install &> $logFile && log "$successMessage")  || log "$errorMessage") &
+  ((npm install &> $logFile && log "$successMessage")  || log "$errorMessage") &
   spinner $!
 }
 
@@ -164,7 +164,7 @@ buildTheme() {
     echo "${build} ${warning} No assets directory found!"
     buildAssets "$1"
   elif [ "$(echo $_GIT_CHANGES | grep $2)" ]; then # case: if some files inside the theme directory have changed since the last pull
-    echo "${build} ${warning} Changes found in assets directory!"
+    echo "${build} ${warning} Changes found in theme directory!"
     buildAssets "$1"
   else
     echo "${build} ${info} No changes found on $1."
