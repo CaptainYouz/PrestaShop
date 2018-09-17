@@ -57,7 +57,6 @@ printLine() {
 }
 
 # inspired by http://fitnr.com/showing-a-bash-spinner.html
-
 spinner() {
   local pid=$1
   local delay=0.05
@@ -170,11 +169,6 @@ buildTheme() {
     echo "${build} ${info} No changes found on $1."
     echo "${build} ${check} Nothing to build here!"
   fi
-}
-
-
-test() {
-  sleep 3
 }
 
 ## Start of the script
