@@ -75,7 +75,7 @@ const config = {
       './js/pages/localization'
     ],
     invoices: [
-        './js/pages/invoices',
+      './js/pages/invoices',
     ],
     geolocation: [
       './js/pages/geolocation',
@@ -89,6 +89,9 @@ const config = {
     sql_manager: [
       './js/pages/sql-manager',
     ],
+    catalog_product: [
+      './js/pages/catalog/product'
+    ],
     backup: [
       './js/pages/backup'
     ],
@@ -97,7 +100,10 @@ const config = {
     ],
     translation_settings: [
       './js/pages/translation-settings'
-    ]
+    ],
+    webservice: [
+      './js/pages/webservice'
+    ],
   },
   output: {
     path: path.resolve(__dirname, 'public'),

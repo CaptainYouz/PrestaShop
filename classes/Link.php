@@ -771,6 +771,7 @@ class LinkCore
 
             default:
                 $routes = array(
+                    'AdminAddonsCatalog' => 'admin_module_addons_store',
                     'AdminAdminPreferences' => 'admin_administration',
                     'AdminCustomerPreferences' => 'admin_customer_preferences',
                     'AdminDeliverySlip' => 'admin_order_delivery_slip',
@@ -781,6 +782,7 @@ class LinkCore
                     'AdminModulesCatalog' => 'admin_module_catalog',
                     'AdminModulesManage' => 'admin_module_manage',
                     'AdminModulesNotifications' => 'admin_module_notification',
+                    'AdminModulesUpdates' => 'admin_module_updates',
                     'AdminModulesPositions' => 'admin_modules_positions',
                     'AdminModulesSf' => 'admin_module_manage',
                     'AdminOrderPreferences' => 'admin_order_preferences',
@@ -797,7 +799,7 @@ class LinkCore
                     'AdminPaymentPreferences' => 'admin_payment_preferences',
                     'AdminInvoices' => 'admin_order_invoices',
                     'AdminEmails' => 'admin_email',
-                    'AdminRequestSql' => 'admin_request_sql',
+                    'AdminRequestSql' => 'admin_sql_request',
                     // 'AdminWebservice' => 'admin_webservice', @todo: uncomment when grid and entity form are done.
                     'AdminBackup' => 'admin_backup',
                 );

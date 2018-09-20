@@ -200,9 +200,10 @@ services:
             - '@prestashop.adapter.legacy.configuration'
 
     prestashop.adapter.sql_manager_settings.configuration:
-        class: 'PrestaShop\PrestaShop\Adapter\Configuration\RequestSqlConfiguration'
+        class: 'PrestaShop\PrestaShop\Adapter\Configuration\SqlRequestConfiguration'
         arguments:
-            - '@prestashop.adapter.legacy.configuration'
+            - '@prestashop.core.command_bus'
+            - '@prestashop.core.query_bus'
 
     prestashop.adapter.webservice.configuration:
         class: 'PrestaShop\PrestaShop\Adapter\Webservice\WebserviceConfiguration'
@@ -216,3 +217,11 @@ services:
             - '@prestashop.adapter.data_provider.language'
             - '@prestashop.adapter.cache_clearer'
             - '@=service("prestashop.adapter.legacy.configuration").get("_PS_TRANSLATIONS_DIR_")'
+
+    prestashop.adapter.webservice.webservice_account_eraser:
+        class: 'PrestaShop\PrestaShop\Adapter\Webservice\WebserviceAccountEraser'
+
+    prestashop.adapter.webservice.webservice_account_status_modifier:
+        class: 'PrestaShop\PrestaShop\Adapter\Webservice\WebserviceAccountStatusModifier'
+        arguments:
+            - '@translator'
