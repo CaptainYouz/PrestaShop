@@ -44,32 +44,31 @@ const config = {
       './js/theme.js',
     ],
     catalog: './js/app/pages/catalog',
-    stock: './js/app/pages/stock',
-    translations: './js/app/pages/translations',
-    logs: './js/pages/logs',
-    improve_design_positions: './js/pages/improve/design_positions',
-    order_preferences: './js/pages/order-preferences',
-    order_delivery: './js/pages/order/delivery',
-    product_preferences: './js/pages/product-preferences',
-    imports: './js/pages/import',
-    localization: './js/pages/localization',
-    invoices: './js/pages/invoices',
-    geolocation: './js/pages/geolocation',
-    payment_preferences: './js/pages/payment-preferences',
-    email: './js/pages/email',
-    sql_manager: './js/pages/sql-manager',
-    catalog_product: './js/pages/catalog/product',
-    backup: './js/pages/backup',
-    module_card: './js/app/pages/module-card',
-    translation_settings: './js/pages/translation-settings',
-    webservice: './js/pages/webservice',
-    meta: './js/pages/meta'
+    // stock: './js/app/pages/stock',
+    // translations: './js/app/pages/translations',
+    // logs: './js/pages/logs',
+    // improve_design_positions: './js/pages/improve/design_positions',
+    // order_preferences: './js/pages/order-preferences',
+    // order_delivery: './js/pages/order/delivery',
+    // product_preferences: './js/pages/product-preferences',
+    // imports: './js/pages/import',
+    // localization: './js/pages/localization',
+    // invoices: './js/pages/invoices',
+    // geolocation: './js/pages/geolocation',
+    // payment_preferences: './js/pages/payment-preferences',
+    // email: './js/pages/email',
+    // sql_manager: './js/pages/sql-manager',
+    // catalog_product: './js/pages/catalog/product',
+    // backup: './js/pages/backup',
+    // module_card: './js/app/pages/module-card',
+    // translation_settings: './js/pages/translation-settings',
+    // webservice: './js/pages/webservice',
+    // meta: './js/pages/meta'
   },
   output: {
     path: path.resolve(__dirname, 'newPublic'),
     filename: '[name].bundle.js'
   },
-  //devtool: 'source-map', // uncomment me to build source maps (really slow)
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
@@ -87,7 +86,7 @@ const config = {
       // STYLES
       {
         test:/\.(s*)css$/,
-        use: [ 'style-loader', 'css-loader', 'sass-loader' ]
+        use: [ 'vue-style-loader', 'style-loader', 'css-loader', 'sass-loader' ]
       },
       // FILES
       {

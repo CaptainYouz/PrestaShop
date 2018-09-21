@@ -70,7 +70,7 @@
   };
 </script>
 
-<style lang="sass" type="text/scss" scoped>
+<style lang="scss" type="text/scss" scoped>
     .serp-preview {
         margin-top: 15px;
         margin-bottom: 15px;
