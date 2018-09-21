@@ -26,78 +26,120 @@
 
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const config = {
-  entry: {
-    main: [
-      'prestakit/dist/js/prestashop-ui-kit.js',
-      'jquery-ui-dist/jquery-ui.js',
-      'bootstrap-tokenfield/dist/bootstrap-tokenfield.js',
-      'eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js',
-      'jwerty/jwerty.js',
-      'magnific-popup/dist/jquery.magnific-popup.js',
-      'dropzone/dist/dropzone.js',
-      'typeahead.js/dist/typeahead.jquery.js',
-      'typeahead.js/dist/bloodhound.min.js',
-      // 'bootstrap-slider/dist/bootstrap-slider.js',
-      'sprintf-js/src/sprintf.js',
-      './js/theme.js',
-    ],
-    catalog: './js/app/pages/catalog',
-    // stock: './js/app/pages/stock',
-    // translations: './js/app/pages/translations',
-    // logs: './js/pages/logs',
-    // improve_design_positions: './js/pages/improve/design_positions',
-    // order_preferences: './js/pages/order-preferences',
-    // order_delivery: './js/pages/order/delivery',
-    // product_preferences: './js/pages/product-preferences',
-    // imports: './js/pages/import',
-    // localization: './js/pages/localization',
-    // invoices: './js/pages/invoices',
-    // geolocation: './js/pages/geolocation',
-    // payment_preferences: './js/pages/payment-preferences',
-    // email: './js/pages/email',
-    // sql_manager: './js/pages/sql-manager',
-    // catalog_product: './js/pages/catalog/product',
-    // backup: './js/pages/backup',
-    // module_card: './js/app/pages/module-card',
-    // translation_settings: './js/pages/translation-settings',
-    // webservice: './js/pages/webservice',
-    // meta: './js/pages/meta'
-  },
-  output: {
-    path: path.resolve(__dirname, 'newPublic'),
-    filename: '[name].bundle.js'
-  },
-  resolve: {
-    extensions: ['.js', '.vue', '.json'],
-    alias: {
-      vue$: 'vue/dist/vue.common.js',
-      app: path.resolve(__dirname, 'js/app'),
+module.exports = (env, argvs) => {
+  const prodMode = (argvs.mode === 'production');
+
+  return {
+    entry: {
+      main: [
+        'prestakit/dist/js/prestashop-ui-kit.js',
+        'jquery-ui-dist/jquery-ui.js',
+        'bootstrap-tokenfield/dist/bootstrap-tokenfield.js',
+        'eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js',
+        'jwerty/jwerty.js',
+        'magnific-popup/dist/jquery.magnific-popup.js',
+        'dropzone/dist/dropzone.js',
+        'typeahead.js/dist/typeahead.jquery.js',
+        'typeahead.js/dist/bloodhound.min.js',
+        // 'bootstrap-slider/dist/bootstrap-slider.js',
+        'sprintf-js/src/sprintf.js',
+        './js/theme.js',
+      ],
+      catalog: './js/app/pages/catalog',
+      stock: './js/app/pages/stock',
+      translations: './js/app/pages/translations',
+      logs: './js/pages/logs',
+      improve_design_positions: './js/pages/improve/design_positions',
+      order_preferences: './js/pages/order-preferences',
+      order_delivery: './js/pages/order/delivery',
+      product_preferences: './js/pages/product-preferences',
+      imports: './js/pages/import',
+      localization: './js/pages/localization',
+      invoices: './js/pages/invoices',
+      geolocation: './js/pages/geolocation',
+      payment_preferences: './js/pages/payment-preferences',
+      email: './js/pages/email',
+      sql_manager: './js/pages/sql-manager',
+      catalog_product: './js/pages/catalog/product',
+      backup: './js/pages/backup',
+      module_card: './js/app/pages/module-card',
+      translation_settings: './js/pages/translation-settings',
+      webservice: './js/pages/webservice',
+      meta: './js/pages/meta'
     },
-  },
-  module: {
-    rules: [
-      // VUE
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader'
-      },
-      // STYLES
-      {
-        test:/\.(s*)css$/,
-        use: [ 'vue-style-loader', 'style-loader', 'css-loader', 'sass-loader' ]
-      },
-      // FILES
-      {
-        test: /.(jpg|png|woff(2)?|eot|otf|ttf|svg|gif)(\?[a-z0-9=\.]+)?$/,
-        use: 'file-loader?name=[hash].[ext]'
+    output: {
+      path: path.resolve(__dirname, 'public'),
+      filename: '[name].bundle.js'
+    },
+    resolve: {
+      extensions: ['.js', '.vue', '.json'],
+      alias: {
+        vue$: 'vue/dist/vue.common.js',
+        app: path.resolve(__dirname, 'js/app')
       }
+    },
+    optimization: {
+      // With mini-css-extract-plugin, one file is created for each '.js' where css is imported.
+      // The use of this optimization merge them into one file.
+      splitChunks: {
+        cacheGroups: {
+          styles: {
+            name: 'themes',
+            test: /\.(s*)css$/,
+            chunks: 'all',
+            enforce: true
+          }
+        }
+      }
+    },
+    module: {
+      rules: [
+        // JS
+        {
+          test: /\.js$/,
+          exclude: /(node_modules)/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env']
+            }
+          }
+        },
+        // VUE
+        {
+          test: /\.vue$/,
+          loader: 'vue-loader'
+        },
+        // STYLES
+        {
+          test:/\.(s*)css$/,
+          use: [
+            prodMode ? MiniCssExtractPlugin.loader : 'style-loader',  // extract CSS to theme.css in prod, style-loader in dev
+            // 'vue-style-loader',                                       // for style block in '.vue' files
+            'css-loader',
+            'sass-loader'
+          ]
+        },
+        // FILES
+        {
+          test: /.(jpg|png|woff(2)?|eot|otf|ttf|svg|gif)(\?[a-z0-9=\.]+)?$/,
+          use: 'file-loader?name=[hash].[ext]'
+        }
+      ]
+    },
+    plugins: [
+      new MiniCssExtractPlugin({
+        filename: '[name].css'
+      }),
+      new VueLoaderPlugin()
     ]
-  },
-  plugins: [
-    new VueLoaderPlugin()
-  ]
+  }
 };
 
-module.exports = config;
+/**
+ *
+ * Known problems:
+ *  - with: vue-style-loader, the document not defined problem appear. Why? Do not know yet
+ */
