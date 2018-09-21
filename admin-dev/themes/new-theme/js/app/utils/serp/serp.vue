@@ -24,7 +24,7 @@
  * International Registered Trademark & Property of PrestaShop SA
  *-->
 <template>
-  <div id="serp"">
+  <div id="serp">
     <div class="serp-preview">
       <div class="serp-title">{{title}}</div>
       <div class="serp-url">{{url}}<span class="serp-arrow"></span></div>
