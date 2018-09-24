@@ -86,7 +86,7 @@ module.exports = (env, argvs) => {
       splitChunks: {
         cacheGroups: {
           styles: {
-            name: 'themes',
+            name: 'theme',
             test: /\.(s*)css$/,
             chunks: 'all',
             enforce: true
@@ -116,12 +116,53 @@ module.exports = (env, argvs) => {
         {
           test:/\.(s*)css$/,
           use: [
-            prodMode ? MiniCssExtractPlugin.loader : 'style-loader',  // extract CSS to theme.css in prod, style-loader in dev
-            // 'vue-style-loader',                                       // for style block in '.vue' files
+            prodMode ? MiniCssExtractPlugin.loader : 'style-loader!vue-style-loader',  // extract CSS to theme.css in prod, style-loader in dev
             'css-loader',
             'sass-loader'
           ]
         },
+        // IMPORTS
+        // {
+        //   test: /jquery-ui\.js/,
+        //   // var define  = false; var this = window
+        //   use: 'imports-loader?define=>false&this=>window'
+        // }, {
+        //   test: /jquery\.magnific-popup\.js/,
+        //   // var define  = false; var exports = false; var this = window
+        //   use: 'imports-loader?define=>false&exports=>false&this=>window'
+        // }, {
+        //   test: /bloodhound\.min\.js/,
+        //   use: [
+        //     {
+        //       loader: 'expose-loader',
+        //       query: 'Bloodhound'
+        //     }
+        //   ]
+        // }, {
+        //   test: /dropzone\/dist\/dropzone\.js/,
+        //   // var this  = window; var module = null;
+        //   loader: 'imports-loader?this=>window&module=>null'
+        // }, {
+        //   test: require.resolve('moment'),
+        //   // var define = false; var this = window;
+        //   loader: 'imports-loader?define=>false&this=>window',
+        // }, {
+        //   test: /typeahead\.jquery\.js/,
+        //   // var define = false; var exports = false; var this = window;
+        //   loader: 'imports-loader?define=>false&exports=>false&this=>window'
+        // }, {
+        //   test: /bootstrap-tokenfield\.js/,
+        //   // var define = false; var exports = false; var this = window;
+        //   loader: 'imports-loader?define=>false&exports=>false&this=>window'
+        // }, {
+        //   test: /bootstrap-datetimepicker\.js/,
+        //   // var define = false; var exports = false; var this = window;
+        //   loader: 'imports-loader?define=>false&exports=>false&this=>window'
+        // }, {
+        //   test: /jwerty\/jwerty\.js/,
+        //   // var this  = window; var module = null;
+        //   loader: 'imports-loader?this=>window&module=>false'
+        // },
         // FILES
         {
           test: /.(jpg|png|woff(2)?|eot|otf|ttf|svg|gif)(\?[a-z0-9=\.]+)?$/,
@@ -130,10 +171,10 @@ module.exports = (env, argvs) => {
       ]
     },
     plugins: [
+      new VueLoaderPlugin(),
       new MiniCssExtractPlugin({
         filename: '[name].css'
       }),
-      new VueLoaderPlugin()
     ]
   }
 };
